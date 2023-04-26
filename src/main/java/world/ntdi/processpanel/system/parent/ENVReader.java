@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import world.ntdi.processpanel.system.ENVManager;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +28,24 @@ public class ENVReader {
                     }
                 }
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void uploadKeyValue(String key, String value) {
+        envMap.put(key, value);
+    }
+
+    public void uploadValuesToFile() {
+        if (ENVManager.getParentENV() != null) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(ENVManager.getParentENV()));
+                for (Map.Entry<String, String> pair : getEnvMap().entrySet()) {
+                    writer.write(pair.getKey() + "=" + pair.getValue() + "\n");
+                }
+                writer.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

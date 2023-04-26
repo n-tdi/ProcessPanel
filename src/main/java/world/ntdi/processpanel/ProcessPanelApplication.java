@@ -12,5 +12,7 @@ public class ProcessPanelApplication {
         SpringApplication.run(ProcessPanelApplication.class, args);
         System.out.println(ENVManager.getKey() + " " + ENVManager.getService());
         System.out.println(ENVReader.getEnvMap());
+        ENVReader.uploadKeyValue("BASED", "noahpanto");
+        ENVReader.uploadValuesToFile();
     }
 }

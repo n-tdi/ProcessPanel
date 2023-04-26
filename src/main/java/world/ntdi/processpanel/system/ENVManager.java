@@ -27,7 +27,7 @@ public class ENVManager {
             throw new RuntimeException("No SystemD Service Specified in .env");
         }
         if (envMap.containsKey("PARENT_ENV")) {
-            parentENV = envMap.get("SYSTEMD_SERVICE");
+            parentENV = envMap.get("PARENT_ENV");
         } else {
             System.out.println("No Parent ENV file set, skipping.");
             parentENV = null;
