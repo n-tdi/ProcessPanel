@@ -35,10 +35,12 @@ public class ENVReader {
 
     public void removeKey(String key) {
         envMap.remove(key);
+        uploadValuesToFile();
     }
 
     public void uploadKeyValue(String key, String value) {
         envMap.put(key, value);
+        uploadValuesToFile();
     }
 
     public void uploadValuesToFile() {

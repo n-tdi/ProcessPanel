@@ -9,7 +9,6 @@ import world.ntdi.processpanel.system.parent.ENVReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/penv")
@@ -34,6 +33,28 @@ public class ParentENVController {
 
     @PostMapping("/update")
     public ResponseEntity<Map.Entry<String, String>> updatePENV(@RequestParam String key, @RequestParam String key1, @RequestParam String value) {
+        if (ENVManager.correctKey(key)) {
+            ENVReader.uploadKeyValue(key1, value);
+            return ResponseEntity.ok(Map.entry("response", "Success!"));
+        }
+        return ResponseEntity.badRequest().build();
+    }
 
+    @PostMapping("/add")
+    public ResponseEntity<Map.Entry<String, String>> addPENV(@RequestParam String key, @RequestParam String key1, @RequestParam String value) {
+        if (ENVManager.correctKey(key)) {
+            ENVReader.uploadKeyValue(key1, value);
+            return ResponseEntity.ok(Map.entry("response", "Success!"));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping("/remove")
+    public ResponseEntity<Map.Entry<String, String>> removePENV(@RequestParam String key, @RequestParam String key1) {
+        if (ENVManager.correctKey(key)) {
+            ENVReader.removeKey(key1);
+            return ResponseEntity.ok(Map.entry("response", "Success!"));
+        }
+        return ResponseEntity.badRequest().build();
     }
 }
