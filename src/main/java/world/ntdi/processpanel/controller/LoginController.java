@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import world.ntdi.processpanel.system.ENVManager;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -21,7 +20,7 @@ public class LoginController {
     private final Bucket bucket;
 
     public LoginController() {
-        Bandwidth limit = Bandwidth.classic(20, Refill.intervally(10, Duration.ofMinutes(10)));
+        Bandwidth limit = Bandwidth.classic(5, Refill.intervally(10, Duration.ofMinutes(10)));
         this.bucket = Bucket.builder()
                 .addLimit(limit)
                 .build();
