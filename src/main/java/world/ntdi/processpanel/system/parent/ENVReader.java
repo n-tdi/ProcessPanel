@@ -33,6 +33,10 @@ public class ENVReader {
         }
     }
 
+    public void removeKey(String key) {
+        envMap.remove(key);
+    }
+
     public void uploadKeyValue(String key, String value) {
         envMap.put(key, value);
     }
@@ -40,7 +44,7 @@ public class ENVReader {
     public void uploadValuesToFile() {
         if (ENVManager.getParentENV() != null) {
             try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(ENVManager.getParentENV()));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(ENVManager.getParentENV(), false));
                 for (Map.Entry<String, String> pair : getEnvMap().entrySet()) {
                     writer.write(pair.getKey() + "=" + pair.getValue() + "\n");
                 }
