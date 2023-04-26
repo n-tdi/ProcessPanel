@@ -27,17 +27,17 @@ public class PowerActionController {
                 .build();
     }
 
-    @PostMapping
+    @PostMapping("/start")
     public ResponseEntity<Map<String, String>> start(@RequestParam String key) {
         return doRequest(key, "start");
     }
 
-    @PostMapping
+    @PostMapping("/stop")
     public ResponseEntity<Map<String, String>> stop(@RequestParam String key) {
         return doRequest(key, "stop");
     }
 
-    @PostMapping
+    @PostMapping("/restart")
     public ResponseEntity<Map<String, String>> restart(@RequestParam String key) {
         return doRequest(key, "restart");
     }

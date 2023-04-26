@@ -11,6 +11,8 @@ public class ENVManager {
     private final static String key;
     @Getter
     private final static String service;
+    @Getter
+    private final static String parentENV;
 
     static {
         Map<String, String> envMap = System.getenv();
@@ -23,6 +25,12 @@ public class ENVManager {
             service = envMap.get("SYSTEMD_SERVICE");
         } else {
             throw new RuntimeException("No SystemD Service Specified in .env");
+        }
+        if (envMap.containsKey("PARENT_ENV")) {
+            parentENV = envMap.get("SYSTEMD_SERVICE");
+        } else {
+            System.out.println("No Parent ENV file set, skipping.");
+            parentENV = null;
         }
     }
 
