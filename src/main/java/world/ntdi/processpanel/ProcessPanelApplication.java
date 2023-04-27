@@ -3,7 +3,6 @@ package world.ntdi.processpanel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import world.ntdi.processpanel.system.ENVManager;
-import world.ntdi.processpanel.system.parent.ENVReader;
 
 import java.util.Collections;
 
@@ -15,8 +14,5 @@ public class ProcessPanelApplication {
         app.setDefaultProperties(Collections.singletonMap("server.port", ENVManager.getPort()));
         app.run(args);
         System.out.println(ENVManager.getKey() + " " + ENVManager.getService());
-        System.out.println(ENVReader.getEnvMap());
-        ENVReader.uploadKeyValue("BASED", "noahpanto");
-        ENVReader.uploadValuesToFile();
     }
 }
