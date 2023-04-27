@@ -1,9 +1,8 @@
 package world.ntdi.processpanel.system;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
-
-import java.util.Map;
 
 @UtilityClass
 public class ENVManager {
@@ -13,25 +12,16 @@ public class ENVManager {
     private final static String service;
     @Getter
     private final static String parentENV;
+    @Getter
+    private final static String port;
 
     static {
-        Map<String, String> envMap = System.getenv();
-        if (envMap.containsKey("KEY")) {
-            key = envMap.get("KEY");
-        } else {
-            throw new RuntimeException("No Key Specified in .env");
-        }
-        if (envMap.containsKey("SYSTEMD_SERVICE")) {
-            service = envMap.get("SYSTEMD_SERVICE");
-        } else {
-            throw new RuntimeException("No SystemD Service Specified in .env");
-        }
-        if (envMap.containsKey("PARENT_ENV")) {
-            parentENV = envMap.get("PARENT_ENV");
-        } else {
-            System.out.println("No Parent ENV file set, skipping.");
-            parentENV = null;
-        }
+        Dotenv dotenv = Dotenv.load();
+        key = dotenv.get("KEY");
+        service = dotenv.get("SYSTEMD_SERVICE");
+        parentENV = dotenv.get("PARENT_ENV");
+        port = dotenv.get("PORT");
+
     }
 
     public boolean correctKey(String check) {

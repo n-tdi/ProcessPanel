@@ -5,11 +5,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import world.ntdi.processpanel.system.ENVManager;
 import world.ntdi.processpanel.system.parent.ENVReader;
 
+import java.util.Collections;
+
 @SpringBootApplication
 public class ProcessPanelApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProcessPanelApplication.class, args);
+        SpringApplication app = new SpringApplication(ProcessPanelApplication.class);
+        app.setDefaultProperties(Collections.singletonMap("server.port", ENVManager.getPort()));
+        app.run(args);
         System.out.println(ENVManager.getKey() + " " + ENVManager.getService());
         System.out.println(ENVReader.getEnvMap());
         ENVReader.uploadKeyValue("BASED", "noahpanto");
