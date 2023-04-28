@@ -14,8 +14,8 @@ import java.util.Map;
 @RequestMapping("/api/v1/penv")
 public class ParentENVController {
     @GetMapping("/has")
-    public ResponseEntity<Map.Entry<String, String>> hasPENV() {
-        return ResponseEntity.ok(Map.entry("response", String.valueOf((ENVManager.getParentENV() != null))));
+    public ResponseEntity<Map.Entry<String, Boolean>> hasPENV() {
+        return ResponseEntity.ok(Map.entry("response", (ENVManager.getParentENV() != null)));
     }
 
     @GetMapping("/get")
