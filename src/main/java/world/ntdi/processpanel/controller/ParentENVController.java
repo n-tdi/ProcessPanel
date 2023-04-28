@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import world.ntdi.processpanel.object.KeyValue;
 import world.ntdi.processpanel.system.ENVManager;
+import world.ntdi.processpanel.system.LogManager;
 import world.ntdi.processpanel.system.parent.ENVReader;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ public class ParentENVController {
 
     @GetMapping("/get")
     public ResponseEntity<Map.Entry<String, List<KeyValue<String, String>>>> getAllPENV(@RequestParam String key) {
-        List<KeyValue<String, String>> values = new ArrayList<>();
-        ENVReader.getEnvMap().forEach((key1, value) -> values.add(new KeyValue<>(key1, value)));
-
         if (ENVManager.correctKey(key)) {
+            List<KeyValue<String, String>> values = new ArrayList<>();
+            ENVReader.getEnvMap().forEach((key1, value) -> values.add(new KeyValue<>(key1, value)));
+            LogManager.addCommandLine("GET Values");
             return ResponseEntity.ok(Map.entry("response",
                     values
             ));
@@ -35,6 +36,7 @@ public class ParentENVController {
     public ResponseEntity<Map.Entry<String, String>> updatePENV(@RequestParam String key, @RequestParam String key1, @RequestParam String value) {
         if (ENVManager.correctKey(key)) {
             ENVReader.uploadKeyValue(key1, value);
+            LogManager.addCommandLine("UPDATE " + key1 + " to " + value);
             return ResponseEntity.ok(Map.entry("response", "Success!"));
         }
         return ResponseEntity.badRequest().build();
@@ -44,6 +46,7 @@ public class ParentENVController {
     public ResponseEntity<Map.Entry<String, String>> addPENV(@RequestParam String key, @RequestParam String key1, @RequestParam String value) {
         if (ENVManager.correctKey(key)) {
             ENVReader.uploadKeyValue(key1, value);
+            LogManager.addCommandLine("ADD " + key1 + " = " + value);
             return ResponseEntity.ok(Map.entry("response", "Success!"));
         }
         return ResponseEntity.badRequest().build();
@@ -53,6 +56,7 @@ public class ParentENVController {
     public ResponseEntity<Map.Entry<String, String>> removePENV(@RequestParam String key, @RequestParam String key1) {
         if (ENVManager.correctKey(key)) {
             ENVReader.removeKey(key1);
+            LogManager.addCommandLine("REMOVE " + key1);
             return ResponseEntity.ok(Map.entry("response", "Success!"));
         }
         return ResponseEntity.badRequest().build();

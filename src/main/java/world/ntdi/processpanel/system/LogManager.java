@@ -17,6 +17,10 @@ public class LogManager {
         output.add(formatCurrentTimeStamp() + " " + line);
     }
 
+    public void addCommandLine(String line) {
+        addLine("panel@NtdiWorld $ " + line);
+    }
+
     public void addLine(List<String> lines) {
         lines.forEach(LogManager::addLine);
     }

@@ -20,7 +20,7 @@ public class CommandHelper {
     }
 
     public void runCommand(String command) {
-        LogManager.addLine("panel@ntdiworld $ " + command);
+        LogManager.addCommandLine(command);
         try {
             Process process = Runtime.getRuntime().exec(command);
 
